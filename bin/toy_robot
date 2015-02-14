@@ -12,6 +12,10 @@ table = Table.new(5,5)
 robot = Robot.new(table)
 
 commands.each do |command|
-  robot = robot.follow command
-  puts robot.output if robot.output
+  result = robot.follow command
+  if result.kind_of? Robot
+    robot = result
+  else
+    puts result
+  end
 end

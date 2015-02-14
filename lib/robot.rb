@@ -1,12 +1,30 @@
 # the Robot class is immutable (ie, it never changes state).
 # Instead it returns new instances of Robot with
 # updated state.
+#
+
+class Direction < Struct.new(:value)
+
+  def self.for(val)
+    new(val)
+  end
+
+  def to_s
+    value
+  end
+
+end
+
 class Robot
 
-  attr_reader :output
+  attr_reader :table, :x, :y, :direction
 
   def initialize(table, options={})
+    @table = table
     @output = options[:output]
+    @x = options[:x]
+    @y = options[:y]
+    @direction = Direction.for(options[:f])
   end
 
   def follow(command)
@@ -17,6 +35,10 @@ class Robot
     else
       self
     end
+  end
+
+  def report
+    "#{x},#{y},#{direction}"
   end
 
 end

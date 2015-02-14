@@ -103,15 +103,14 @@ describe Robot do
   #. REPORT will announce the X,Y and F of the robot. This can be in any form, but
   #standard output is sufficient.
   describe "report" do
-    it "ignores the command if it isn't on the table"
-    it "reports its location and direction"
-  end
-
-  describe "output" do
-    it "returns the value given when the robot was created" do
-      robot = Robot.new(table, output: "blah")
-      expect(robot.output).to eq("blah")
+    context "when on the table" do
+      subject { Robot.new(table, x:0, y:0, f: 'NORTH')}
+      it "reports its location and direction" do
+        expect(subject.report).to eq("0,0,NORTH")
+      end
     end
+
+    it "ignores the command if it isn't on the table"
   end
 
 end
