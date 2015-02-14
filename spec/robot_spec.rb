@@ -1,7 +1,11 @@
+require_relative '../lib/table'
 require_relative '../lib/robot'
 
 
 describe Robot do
+
+  let(:table) {table.new 5, 5}
+  subject {Robot.new(table)}
 
   describe "#follow" do
     it "parses the command and returns the value of the matching method on the robot"
@@ -83,9 +87,16 @@ describe Robot do
   #. REPORT will announce the X,Y and F of the robot. This can be in any form, but
   #standard output is sufficient.
   describe "report" do
-
     it "ignores the command if it isn't on the table"
     it "reports its location and direction"
+  end
+
+  describe "output" do
+    it "returns the value given when the robot was created" do
+      table = Table.new(4,4)
+      robot = Robot.new(table, output: "blah")
+      expect(robot.output).to eq("blah")
+    end
   end
 
 end

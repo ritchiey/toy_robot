@@ -13,6 +13,5 @@ robot = Robot.new(table)
 
 commands.each do |command|
   robot = robot.follow command
-  output = robot.output
-  puts output if output
+  puts robot.output if robot.output
 end

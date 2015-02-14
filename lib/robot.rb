@@ -3,12 +3,10 @@
 # updated state.
 class Robot
 
-  def initialize(table)
+  attr_reader :output
 
-  end
-
-  def follow(command)
-
+  def initialize(table, options={})
+    @output = options[:output]
   end
 
 end
