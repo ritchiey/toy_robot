@@ -51,7 +51,7 @@ class Robot
   end
 
   def left
-    self.class.new(table, x:x, y:y, f: direction.left)
+    change(f: direction.left)
   end
 
   private
@@ -65,8 +65,12 @@ class Robot
   end
 
   def safely_change(changes)
-    robot = Robot.new(table, {x:x, y:y, f:direction}.merge(changes))
+    robot = change(changes)
     robot.on_table? ? robot : self
+  end
+
+  def change(changes)
+    Robot.new(table, {x:x, y:y, f:direction}.merge(changes))
   end
 
 end
