@@ -1,16 +1,16 @@
 class Direction < Struct.new(:value)
 
-  def self.for(str)
-    new(str)
+  def self.for(dir)
+    dir.instance_of?(Direction) ? dir : new(dir)
   end
 
   def offset
-    case value
-    when 'NORTH' then [0,1]
-    when 'EAST' then  [1,0]
-    when 'SOUTH' then  [0,-1]
-    when 'WEST' then  [-1,0]
-    end
+    {
+     'NORTH' => [0,1],
+     'EAST' =>  [1,0],
+     'SOUTH' =>  [0,-1],
+     'WEST' =>  [-1,0]
+    }[value]
   end
 
   def to_s
