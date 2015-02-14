@@ -60,8 +60,8 @@ describe Robot do
   describe "#move" do
 
     it "ignores the request if it isn't on the table"
+
     it "ignores the request if it would make it fall off the table" do
-      skip
       robot = Robot.new table, x:1, y:0, f: 'SOUTH'
       expect(robot.move.y).to eq(0)
     end

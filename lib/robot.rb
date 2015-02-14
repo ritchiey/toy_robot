@@ -48,7 +48,8 @@ class Robot
 
   def move
     x_offset, y_offset = direction.offset
-    self.class.new(table, x: x+x_offset, y: y+y_offset, f: direction)
+    robot = self.class.new(table, x: x+x_offset, y: y+y_offset, f: direction)
+    robot.on_table? ? robot : self
   end
 
   private
