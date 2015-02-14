@@ -50,6 +50,10 @@ class Robot
     safely_change(x: x+x_offset, y: y+y_offset)
   end
 
+  def left
+    self.class.new(table, x:x, y:y, f: direction.left)
+  end
+
   private
 
   def interpret(params)

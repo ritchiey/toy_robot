@@ -17,4 +17,8 @@ class Direction < Struct.new(:value)
     value
   end
 
+  def left
+    'NORTH'
+  end
+
 end
