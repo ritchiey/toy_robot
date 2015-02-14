@@ -38,7 +38,7 @@ describe Robot do
       expect(robot).to be_placed
       expect(robot.x).to eq(1)
       expect(robot.y).to eq(2)
-      expect(robot.direction).to eq('NORTH')
+      expect(robot.direction).to eq(Direction.for 'NORTH')
     end
 
     it "ignores requests to place it off the table" do

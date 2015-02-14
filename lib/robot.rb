@@ -1,8 +1,8 @@
+require 'direction'
+
 # the Robot class is immutable (ie, it never changes state).
 # Instead it returns new instances of Robot with
 # updated state.
-#
-
 class Robot
 
   attr_reader :table, :x, :y, :direction
@@ -12,7 +12,7 @@ class Robot
     @output = options[:output]
     @x = options[:x]
     @y = options[:y]
-    @direction = options[:f]
+    @direction = Direction.for options[:f]
   end
 
   def follow(command)
@@ -47,12 +47,7 @@ class Robot
   end
 
   def move
-    x_offset, y_offset = case direction
-    when 'NORTH' then [0,1]
-    when 'EAST' then  [1,0]
-    when 'SOUTH' then  [0,-1]
-    when 'WEST' then  [-1,0]
-    end
+    x_offset, y_offset = direction.offset
     self.class.new(table, x: x+x_offset, y: y+y_offset, f: direction)
   end
 
