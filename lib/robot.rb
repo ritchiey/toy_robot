@@ -9,4 +9,14 @@ class Robot
     @output = options[:output]
   end
 
+  def follow(command)
+    parts = command.split(' ')
+    parts[0] = parts[0].downcase.to_sym
+    if self.respond_to? parts[0]
+      self.send(*parts)
+    else
+      self
+    end
+  end
+
 end

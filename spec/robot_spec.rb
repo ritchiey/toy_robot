@@ -4,14 +4,30 @@ require_relative '../lib/robot'
 
 describe Robot do
 
-  let(:table) {table.new 5, 5}
+  let(:table) {Table.new 5, 5}
   subject {Robot.new(table)}
 
   describe "#follow" do
-    it "parses the command and returns the value of the matching method on the robot"
-    it "passes the parameters to the command as parameters to the method call"
-    it "ignores commands the robot doesn't understand"
-    it "doesn't call itself"
+
+    it "parses the command and returns the value of the matching method on the robot" do
+      expect(subject).to receive(:some_command).and_return(:some_result)
+      expect(subject.follow('SOME_COMMAND')).to eq(:some_result)
+    end
+
+    it "passes the parameters to the command as parameters to the method call" do
+      expect(subject).to receive(:some_command).with('hi', 'there').and_return(:some_result)
+      expect(subject.follow('SOME_COMMAND hi there')).to eq(:some_result)
+    end
+
+    it "returns itself (unchanged) if it doesn't understand the command" do
+      expect(subject.follow "SOME_UNKNOWN_COMMAND").to eq(subject)
+    end
+
+    it "doesn't call itself" do
+      expect(subject).to receive(:follow).once
+      subject.follow "FOLLOW"
+    end
+
   end
 
 
@@ -93,7 +109,6 @@ describe Robot do
 
   describe "output" do
     it "returns the value given when the robot was created" do
-      table = Table.new(4,4)
       robot = Robot.new(table, output: "blah")
       expect(robot.output).to eq("blah")
     end
