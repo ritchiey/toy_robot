@@ -1,3 +1,3 @@
-class Table < Struct.new(:with, :height)
+class Table < Struct.new(:width, :height)
 
 end

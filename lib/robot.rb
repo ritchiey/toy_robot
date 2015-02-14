@@ -16,10 +16,10 @@ class Robot
   end
 
   def follow(command)
-    parts = command.split(' ')
-    parts[0] = parts[0].downcase.to_sym
-    if self.respond_to? parts[0]
-      self.send(*parts)
+    method, params = command.split(' ')
+    method = method.downcase.to_sym
+    if self.respond_to? method
+      self.send(method, *interpret(params || ""))
     else
       self
     end
@@ -33,10 +33,27 @@ class Robot
     end
   end
 
-  private
+  def place(x, y, facing)
+    robot = Robot.new table, x: x, y: y, f: facing
+    robot.on_table? ? robot : self
+  end
 
   def placed?
     !!x
+  end
+
+  def on_table?
+    x >= 0 && y >= 0 && y < table.height && x < table.width
+  end
+
+  private
+
+  def interpret(params)
+    params.split(',').map{|p|is_int?(p) ? p.to_i : p }
+  end
+
+  def is_int?(str)
+    str =~ /^[0-9]$/
   end
 
 end

@@ -15,8 +15,8 @@ describe Robot do
     end
 
     it "passes the parameters to the command as parameters to the method call" do
-      expect(subject).to receive(:some_command).with('hi', 'there').and_return(:some_result)
-      expect(subject.follow('SOME_COMMAND hi there')).to eq(:some_result)
+      expect(subject).to receive(:place).with(1, 2, 'EAST').and_return(:some_result)
+      expect(subject.follow('PLACE 1,2,EAST')).to eq(:some_result)
     end
 
     it "returns itself (unchanged) if it doesn't understand the command" do
@@ -33,15 +33,18 @@ describe Robot do
 
   describe "#place" do
 
-    it "can be placed on the table facing North"
-    it "can be placed on the table facing East"
-    it "can be placed on the table facing West"
-    it "can be placed on the table facing South"
+    it "can be placed on the table facing North" do
+      robot = subject.place(1, 2, 'NORTH')
+      expect(robot).to be_placed
+      expect(robot.x).to eq(1)
+      expect(robot.y).to eq(2)
+      expect(robot.direction).to eq('NORTH')
+    end
 
-    it "ignores requests to place it too far North"
-    it "ignores requests to place it too far East"
-    it "ignores requests to place it too far West"
-    it "ignores requests to place it too far South"
+    it "ignores requests to place it off the table" do
+      robot = subject.place(1, table.height, 'NORTH')
+      expect(robot).to_not be_placed
+    end
 
   end
 
@@ -113,6 +116,28 @@ describe Robot do
     it "ignores the command if it isn't on the table" do
       expect(subject.report).to eq(subject)
     end
+  end
+
+  describe "#on_table?" do
+    it "can't be too far North" do
+      expect(described_class.new(table, x:0, y: table.height-1)).to be_on_table
+      expect(described_class.new(table, x:0, y: table.height)).to_not be_on_table
+    end
+
+    it "can't be too far East" do
+      expect(described_class.new(table, x:table.width-1, y: 0)).to be_on_table
+      expect(described_class.new(table, x:table.width, y: 0)).to_not be_on_table
+    end
+    it "can't be too far South" do
+      expect(described_class.new(table, x:0, y: 0)).to be_on_table
+      expect(described_class.new(table, x:0, y: -1)).to_not be_on_table
+    end
+
+    it "can't be too far West" do
+      expect(described_class.new(table, x:0, y: 0)).to be_on_table
+      expect(described_class.new(table, x:-1, y: 0)).to_not be_on_table
+    end
+
   end
 
 end
