@@ -34,8 +34,7 @@ class Robot
   end
 
   def place(x, y, facing)
-    robot = Robot.new table, x: x, y: y, f: facing
-    robot.on_table? ? robot : self
+    safely_change x: x, y: y, f: facing
   end
 
   def placed?
@@ -48,8 +47,7 @@ class Robot
 
   def move
     x_offset, y_offset = direction.offset
-    robot = self.class.new(table, x: x+x_offset, y: y+y_offset, f: direction)
-    robot.on_table? ? robot : self
+    safely_change(x: x+x_offset, y: y+y_offset)
   end
 
   private
@@ -60,6 +58,11 @@ class Robot
 
   def is_int?(str)
     str =~ /^[0-9]$/
+  end
+
+  def safely_change(changes)
+    robot = Robot.new(table, {x:x, y:y, f:direction}.merge(changes))
+    robot.on_table? ? robot : self
   end
 
 end
