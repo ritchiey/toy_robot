@@ -18,13 +18,17 @@ class Direction < Struct.new(:value)
   end
 
   def left
-    directions = %w(NORTH EAST SOUTH WEST)
     directions[directions.find_index(value) - 1]
   end
 
   def right
-    directions = %w(NORTH EAST SOUTH WEST)
     directions[(directions.find_index(value) + 1) % directions.length]
+  end
+
+  private
+
+  def directions
+    %w(NORTH EAST SOUTH WEST)
   end
 
 end
