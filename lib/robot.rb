@@ -46,6 +46,7 @@ class Robot
   end
 
   def move
+    return self unless placed?
     x_offset, y_offset = direction.offset
     safely_change(x: x+x_offset, y: y+y_offset)
   end

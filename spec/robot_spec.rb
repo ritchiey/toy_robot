@@ -59,7 +59,10 @@ describe Robot do
 
   describe "#move" do
 
-    it "ignores the request if it isn't on the table"
+    it "ignores the request if it isn't on the table" do
+      robot = subject.move
+      expect(robot).to_not be_placed
+    end
 
     it "ignores the request if it would make it fall off the table" do
       robot = Robot.new table, x:1, y:0, f: 'SOUTH'
