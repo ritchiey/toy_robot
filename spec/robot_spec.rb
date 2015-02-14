@@ -128,8 +128,16 @@ describe Robot do
       expect(robot.left.direction).to eq(Direction.for 'NORTH')
     end
 
-    it "can turn to the East"
-    it "can turn to the West"
+    it "can turn to the East" do
+      robot = Robot.new(table, x:0, y:0, f: 'SOUTH')
+      expect(robot.left.direction).to eq(Direction.for 'EAST')
+    end
+
+    it "can turn to the West" do
+      robot = Robot.new(table, x:0, y:0, f: 'NORTH')
+      expect(robot.left.direction).to eq(Direction.for 'WEST')
+    end
+
     it "can turn to the South"
 
   end
