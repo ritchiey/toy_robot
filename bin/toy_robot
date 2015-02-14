@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+
+require_relative "../lib/table"
+require_relative "../lib/robot"
+
+commands = File.read(ARGV.first).split("\n")
+
+  #. The application is a simulation of a toy robot moving on a square tabletop, of
+  #dimensions 5 units x 5 units.
+table = Table.new(5,5)
+robot = Robot.new(table)
+
+commands.each do |command|
+  robot = robot.follow command
+  output = robot.output
+  puts output if output
+end
