@@ -46,6 +46,16 @@ class Robot
     x >= 0 && y >= 0 && y < table.height && x < table.width
   end
 
+  def move
+    x_offset, y_offset = case direction
+    when 'NORTH' then [0,1]
+    when 'EAST' then  [1,0]
+    when 'SOUTH' then  [0,-1]
+    when 'WEST' then  [-1,0]
+    end
+    self.class.new(table, x: x+x_offset, y: y+y_offset, f: direction)
+  end
+
   private
 
   def interpret(params)

@@ -60,25 +60,52 @@ describe Robot do
   describe "#move" do
 
     it "ignores the request if it isn't on the table"
+    it "ignores the request if it would make it fall off the table" do
+      skip
+      robot = Robot.new table, x:1, y:0, f: 'SOUTH'
+      expect(robot.move.y).to eq(0)
+    end
+
     context "when facing North" do
-      it "moves one unit North"
-      it "won't fall off the North edge of the table"
+      subject {Robot.new table, x:1, y:2, f: 'NORTH'}
+      it "moves one unit North" do
+        robot = subject.move
+        expect([robot.x, robot.y]).to eq([1,3])
+      end
     end
 
     context "when facing East" do
-      it "moves one unit East"
-      it "won't fall off the East edge of the table"
+      subject {Robot.new table, x:1, y:2, f: 'EAST'}
+      it "moves one unit East" do
+        robot = subject.move
+        expect([robot.x, robot.y]).to eq([2,2])
+      end
     end
 
     context "when facing South" do
-      it "moves one unit South"
-      it "won't fall off the South edge of the table"
+      subject {Robot.new table, x:1, y:2, f: 'SOUTH'}
+      it "moves one unit South" do
+        robot = subject.move
+        expect([robot.x, robot.y]).to eq([1,1])
+      end
     end
 
     context "when facing West" do
-      it "moves one unit West"
-      it "won't fall off the West edge of the table"
+      subject {Robot.new table, x:1, y:2, f: 'WEST'}
+      it "moves one unit West" do
+        robot = subject.move
+        expect([robot.x, robot.y]).to eq([0,2])
+      end
     end
+
+    context "when facing East" do
+      subject {Robot.new table, x:1, y:2, f: 'EAST'}
+      it "moves one unit East" do
+        robot = subject.move
+        expect([robot.x, robot.y]).to eq([2,2])
+      end
+    end
+
 
     end
 
