@@ -110,7 +110,9 @@ describe Robot do
       end
     end
 
-    it "ignores the command if it isn't on the table"
+    it "ignores the command if it isn't on the table" do
+      expect(subject.report).to eq(subject)
+    end
   end
 
 end

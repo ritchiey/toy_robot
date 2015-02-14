@@ -3,18 +3,6 @@
 # updated state.
 #
 
-class Direction < Struct.new(:value)
-
-  def self.for(val)
-    new(val)
-  end
-
-  def to_s
-    value
-  end
-
-end
-
 class Robot
 
   attr_reader :table, :x, :y, :direction
@@ -24,7 +12,7 @@ class Robot
     @output = options[:output]
     @x = options[:x]
     @y = options[:y]
-    @direction = Direction.for(options[:f])
+    @direction = options[:f]
   end
 
   def follow(command)
@@ -38,7 +26,17 @@ class Robot
   end
 
   def report
-    "#{x},#{y},#{direction}"
+    if placed?
+      "#{x},#{y},#{direction}"
+    else
+      self
+    end
+  end
+
+  private
+
+  def placed?
+    !!x
   end
 
 end
