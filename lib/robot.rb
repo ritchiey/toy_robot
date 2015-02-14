@@ -54,6 +54,10 @@ class Robot
     change(f: direction.left)
   end
 
+  def right
+    change(f: direction.right)
+  end
+
   private
 
   def interpret(params)

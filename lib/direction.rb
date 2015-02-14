@@ -22,4 +22,9 @@ class Direction < Struct.new(:value)
     directions[directions.find_index(value) - 1]
   end
 
+  def right
+    directions = %w(NORTH EAST SOUTH WEST)
+    directions[(directions.find_index(value) + 1) % directions.length]
+  end
+
 end

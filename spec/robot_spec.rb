@@ -114,10 +114,26 @@ describe Robot do
 
   describe "#right" do
 
-    it "can turn to the North"
-    it "can turn to the East"
-    it "can turn to the West"
-    it "can turn to the South"
+    it "can turn to the North" do
+      robot = Robot.new(table, x:0, y:0, f: 'WEST')
+      expect(robot.right.direction).to eq(Direction.for 'NORTH')
+    end
+
+    it "can turn to the East" do
+      robot = Robot.new(table, x:0, y:0, f: 'NORTH')
+      expect(robot.right.direction).to eq(Direction.for 'EAST')
+    end
+
+    it "can turn to the West" do
+      robot = Robot.new(table, x:0, y:0, f: 'SOUTH')
+      expect(robot.right.direction).to eq(Direction.for 'WEST')
+    end
+
+    it "can turn to the South" do
+      robot = Robot.new(table, x:0, y:0, f: 'EAST')
+      expect(robot.right.direction).to eq(Direction.for 'SOUTH')
+    end
+
 
   end
 
