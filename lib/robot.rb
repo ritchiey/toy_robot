@@ -1,4 +1,4 @@
-require 'direction'
+require_relative 'direction'
 
 # the Robot class is immutable (ie, it never changes state).
 # Instead it returns new instances of Robot with
